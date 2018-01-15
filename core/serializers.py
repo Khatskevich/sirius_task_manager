@@ -66,7 +66,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
         if not all(credentials.values()):
             msg = _('Must include "{username_field}" and "password".')
-            msg = msg.format(username_field=self.username_field)
+            msg = msg.format(username_field="email")
             raise serializers.ValidationError(msg)
 
         pass1 = attrs.get('password1')
