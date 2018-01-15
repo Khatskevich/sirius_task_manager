@@ -130,6 +130,29 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# User uploads (Avatars, Attachments, files uploaded in other Django apps, ect.)
+# https://docs.djangoproject.com/en/{{ docs_version }}/howto/static-files/
+
+MEDIA_URL = '/media/'
+
+# The absolute path to the directory where collectstatic will collect static files for deployment.
+# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#static-root
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#media-root
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# This setting defines the additional locations the staticfiles app will traverse if the FileSystemFinder finder
+# is enabled, e.g. if you use the collectstatic or findstatic management command or use the static file serving view.
+# https://docs.djangoproject.com/en/1.10/ref/settings/#staticfiles-dirs
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 from .drf_settings import REST_FRAMEWORK
 
 SITE_ADDRESS = 'http://sirius.dev'
