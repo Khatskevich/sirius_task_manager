@@ -14,7 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path, include
+from django.conf.urls.static import static
 
 from rest_framework.authtoken import views as token_views
 
@@ -23,4 +25,4 @@ urlpatterns = [
     path('api/auth/', include('core.urls')),
     path('api/auth/login/', token_views.obtain_auth_token),
     path('api/', include('task_manager.urls')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
