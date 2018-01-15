@@ -121,3 +121,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 from .drf_settings import REST_FRAMEWORK
+
+SITE_ADDRESS = 'http://sirius.dev'
+AUTH_USER_MODEL = 'core.User'

@@ -1,1 +1,1 @@
-web: python ./manage.py runserver 5000
+web: gunicorn sirius_task_manager.wsgi --log-file -

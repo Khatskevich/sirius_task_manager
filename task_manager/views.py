@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.shortcuts import render
-from rest_framework import viewsets, decorators, permissions
+from rest_framework import viewsets, decorators, permissions, status
 from rest_framework.response import Response
 
 from .serializers import TaskSerializer
@@ -27,10 +27,13 @@ class TaskViewSet(viewsets.ModelViewSet):
         task = self.get_object()
         username = request.POST['username']
 
-        access_user = USER_MODEL.objects.get(username=username)
+        try:
+            access_user = USER_MODEL.objects.get(email=username)
+        except USER_MODEL.DoesNotExist:
+            return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
         task.access_list.add(access_user)
         task.save()
-        return Response({'response': 'user was added'})
+        return Response({'detail': 'user was added'})
 
 
