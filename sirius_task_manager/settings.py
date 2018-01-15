@@ -150,7 +150,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/1.10/ref/settings/#staticfiles-dirs
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    # os.path.join(BASE_DIR, 'static'),
 ]
 
 from .drf_settings import REST_FRAMEWORK
