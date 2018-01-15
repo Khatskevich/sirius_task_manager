@@ -24,7 +24,10 @@ SECRET_KEY = '+2at1d=bwx441k9v2z@b(neqazfht3y)c2n6kjt1kx&qw%(xx@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'siriustaskmanager.herokuapp.com',
+]
 
 # Application definition
 
