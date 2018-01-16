@@ -12,7 +12,7 @@ USER_MODEL = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = USER_MODEL
-        fields = ('email',)
+        fields = ('email', 'last_name', 'first_name')
 
 
 class PasswordField(serializers.CharField):
