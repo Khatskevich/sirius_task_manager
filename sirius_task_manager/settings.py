@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
-
+    'rest_framework_swagger',
     'core.apps.ApplicationConfig',
     'task_manager.apps.TastManagerConfig',
 ]

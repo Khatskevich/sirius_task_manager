@@ -19,10 +19,19 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 from rest_framework.authtoken import views as token_views
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='Pastebin API')
+
+urlpatterns = [
+
+]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('core.urls')),
     path('api/auth/login/', token_views.obtain_auth_token),
     path('api/', include('task_manager.urls')),
+    path('docs/', schema_view),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
