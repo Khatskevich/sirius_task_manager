@@ -11,5 +11,3 @@ class Task(models.Model):
     description = models.TextField(max_length=1024)
     created_at = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField()
-
-    access_list = models.ManyToManyField(USER_MODEL, related_name='shared_task', blank=True)

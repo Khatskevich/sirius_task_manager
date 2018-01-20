@@ -17,23 +17,10 @@ class TaskViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, )
 
     def get_queryset(self):
-        return Task.objects.all().filter(Q(owner=self.request.user) | Q(access_list=self.request.user))
+        return Task.objects.all().filter(owner=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    @decorators.detail_route(methods=['POST',])
-    def share(self, request, pk):
-        task = self.get_object()
-        username = request.POST['username']
-
-        try:
-            access_user = USER_MODEL.objects.get(email=username)
-        except USER_MODEL.DoesNotExist:
-            return Response({"detail": "User not found"}, status=status.HTTP_404_NOT_FOUND)
-
-        task.access_list.add(access_user)
-        task.save()
-        return Response({'detail': 'user was added'})
 
 
