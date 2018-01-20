@@ -14,3 +14,12 @@ class Task(models.Model):
     finish_date = models.DateField(null=True, blank=True)
     finish_time = models.TimeField(null=True, blank=True)
     repeat_settings = models.CharField(max_length=20, null=True, blank=True)
+
+
+class Like(models.Model):
+    user = models.ForeignKey(USER_MODEL, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="likes")
+
+    class Meta:
+        # User cannot like task twice
+        unique_together = (("user", "task"),)
