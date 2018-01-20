@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    'siriustaskmanager.herokuapp.com',
+    'salty-springs-72589.herokuapp.com',
 ]
 
 # Application definition
