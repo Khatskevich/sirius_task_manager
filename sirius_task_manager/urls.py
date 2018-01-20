@@ -29,7 +29,7 @@ urlpatterns = [
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/auth/', include('core.urls')),
+    path('api/', include('core.urls')),
     path('api/auth/login/', token_views.obtain_auth_token),
     path('api/', include('task_manager.urls')),
     path('docs/', schema_view),

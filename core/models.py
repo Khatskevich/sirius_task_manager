@@ -46,7 +46,7 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), blank=False, unique=True)
     is_valid = models.BooleanField(_('is valid'), blank=False, default=False)
-
+    subscribed_on = models.ManyToManyField("self", related_name='subscribers', blank=True)
     objects = UserManager()
 
 

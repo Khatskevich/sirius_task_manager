@@ -1,17 +1,16 @@
-from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
-from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth import login as auth_login, logout, get_user_model
 from django.utils.translation import ugettext_lazy as _
 
-from django.views.generic import RedirectView, TemplateView
-from django.views.generic.edit import BaseFormView
-from rest_framework import status, viewsets, permissions, decorators
+from rest_framework import status, viewsets, permissions, mixins
+from rest_framework.decorators import detail_route
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from core.models import User
 from .serializers import RegistrationSerializer, ShortUserInfoSerializer, \
-    ValidationCodeSerializer, ResetPasswordSerializer
+    ValidationCodeSerializer, ResetPasswordSerializer, UserSerializer
 from .tasks import send_reset_password_email
 
 
@@ -89,7 +88,6 @@ class ConfirmEmailView(BaseAuthView):
 
 class ResetPasswordView(BaseAuthView):
     serializer_class = ResetPasswordSerializer
-
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         try:
@@ -106,16 +104,31 @@ class ResetPasswordView(BaseAuthView):
         return Response({'status': True, 'messages': {'non_field': _("New password was sent on your email.")}})
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(mixins.ListModelMixin,
+                  mixins.RetrieveModelMixin,
+                  viewsets.GenericViewSet):
     permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = ShortUserInfoSerializer
+    serializer_class = UserSerializer
     pagination_class = None
+    queryset = User.objects.all()
+
+    @detail_route(methods=['post'])
+    def subscribe(self, request, pk):
+        user = self.get_object()
+        if user.pk == request.user.pk:
+            return Response(_("You cannot subscribe on yourself"), status=status.HTTP_400_BAD_REQUEST)
+        request.user.subscribed_on.add(user)
+        return Response("")
+
+    @detail_route(methods=['post'])
+    def unsubscribe(self, request, pk):
+        user = self.get_object()
+        request.user.subscribed_on.remove(user)
+        return Response("")
 
 
 class LogoutView(APIView):
-
     permission_classes = (permissions.IsAuthenticated, )
-
     def post(self, request):
         logout(request)
         return redirect("index")
