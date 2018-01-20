@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
@@ -157,3 +158,7 @@ from .drf_settings import REST_FRAMEWORK
 
 SITE_ADDRESS = 'http://sirius.dev'
 AUTH_USER_MODEL = 'core.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['rest_framework_filters.backends.DjangoFilterBackend'],
+}

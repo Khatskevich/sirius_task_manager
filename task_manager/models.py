@@ -11,3 +11,6 @@ class Task(models.Model):
     description = models.TextField(max_length=1024)
     created_at = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField()
+    finish_date = models.DateField(null=True, blank=True)
+    finish_time = models.TimeField(null=True, blank=True)
+    repeat_settings = models.CharField(max_length=20, null=True, blank=True)
