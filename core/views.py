@@ -3,7 +3,7 @@ from django.contrib.auth import login as auth_login, logout, get_user_model
 from django.utils.translation import ugettext_lazy as _
 
 from rest_framework import status, viewsets, permissions, mixins
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route, list_route
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -111,6 +111,10 @@ class UserViewSet(mixins.ListModelMixin,
     serializer_class = UserSerializer
     pagination_class = None
     queryset = User.objects.all()
+
+    @list_route(methods=['get'])
+    def myself(self, request):
+        return Response(UserSerializer(request.user).data, status=status.HTTP_200_OK)
 
     @detail_route(methods=['post'])
     def subscribe(self, request, pk):
