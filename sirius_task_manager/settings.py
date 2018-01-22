@@ -159,6 +159,4 @@ from .drf_settings import REST_FRAMEWORK
 SITE_ADDRESS = 'http://sirius.dev'
 AUTH_USER_MODEL = 'core.User'
 
-REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['rest_framework_filters.backends.DjangoFilterBackend'],
-}
+REST_FRAMEWORK['DEFAULT_FILTER_BACKENDS'] = 'rest_framework_filters.backends.DjangoFilterBackend'
