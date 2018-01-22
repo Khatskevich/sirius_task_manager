@@ -12,8 +12,8 @@ USER_MODEL = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = USER_MODEL
-        read_only_fields = ('id', 'subscribed_on',)
-        fields = ('id', 'email', 'last_name', 'first_name', 'subscribed_on')
+        read_only_fields = ('id', 'subscribed_on', 'subscribers')
+        fields = ('id', 'email', 'last_name', 'first_name', 'subscribed_on', 'subscribers')
 
 
 class PasswordField(serializers.CharField):

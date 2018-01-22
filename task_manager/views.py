@@ -1,7 +1,6 @@
 import rest_framework_filters
 from django.contrib.auth import get_user_model
 from django.db.models import Q, Count
-from django.shortcuts import render
 from rest_framework import viewsets, decorators, permissions, status, serializers
 from rest_framework.decorators import list_route, detail_route
 from rest_framework.response import Response
